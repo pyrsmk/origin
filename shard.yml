@@ -1,0 +1,22 @@
+name: origin
+version: 0.1.0
+description: |
+  Method delegation with superpowers. It behaves quite the same as `delegate` macro but with typing support and simpler declaration.
+
+authors:
+  - Aurélien Delogu <the@origami.st>
+
+crystal: 0.35.1
+
+license: MIT
+
+targets:
+  shards:
+    main: src/main.cr
+
+development_dependencies:
+  icr:
+    github: crystal-community/icr
+    branch: master
+  spectator:
+    gitlab: arctic-fox/spectator
