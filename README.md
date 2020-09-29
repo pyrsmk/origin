@@ -16,6 +16,7 @@ It supports:
 dependencies:
   origin:
     github: pyrsmk/origin
+    version: ~> 0.1.0
 ```
 
 ## Usage
