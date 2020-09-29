@@ -20,3 +20,4 @@ development_dependencies:
     branch: master
   spectator:
     gitlab: arctic-fox/spectator
+    version: ~> 0.9.26
