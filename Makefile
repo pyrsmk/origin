@@ -15,7 +15,16 @@ test: ## Run the tests
 format: ## Format all Crystal files
 	crystal tool format src/
 
-.PHONY: help
+.PHONY=publish
+publish: ## Publish the shard
+	@echo 'Current version: '
+	@echo $(shell git describe --tags)
+	@echo
+	@read -p "Version? " VERSION; \
+	git tag $$VERSION
+	git push --tags
+
+.PHONY=help
 help: ## Show this help
 	@egrep -h '\s##\s' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[1;34m%-20s\033[0m %s\n", $$1, $$2}'
 
