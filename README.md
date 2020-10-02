@@ -137,7 +137,11 @@ end
 
 ### Setters and special method names
 
-There's a special syntax we had not talk about yet. If you want to wire setters or some weird method names like `<<` or `[]?` you would see that the compiler's complaining. So, for these cases, you should use a symbol. The only flaw is that **you can't specify return types when using symbols**. Here's a more concrete example:
+There's a special syntax we had not talk about yet. If you want to wire setters or some weird method names like `<<` or `[]?` you would see that the compiler's complaining. Hence, for these cases, you need to use a symbol.
+
+Just note that if you want to have a return type for special method names, you'll need to explicitly define it with the `return_type` option (but you won't be able to use this trick with `autowire`).
+
+Here's a more concrete example:
 
 ```crystal
 class StringCollection
@@ -161,8 +165,8 @@ class StringCollection
 end
 
 class SymbolToStringCollection
-  wire :[] : String, to: :[]
-  wire :[]? : String?, to: :[]?
+  wire :[], return_type: String, to: :[]
+  wire :[]?, return_type: String?, to: :[]?
 
   def initialize(@origin : StringCollection); end
 

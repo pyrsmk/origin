@@ -33,13 +33,13 @@ Spectator.describe "wire" do
     def value
       @value
     end
-    def <<(value)
+    def <<(value : String)
       @array << value
     end
-    def []=(index, value)
+    def []=(index : Int32, value : String)
       @array[index] = value
     end
-    def [](index)
+    def [](index : Int32) : String
       @array[index]
     end
     def call_block(x : Int32)
@@ -50,7 +50,8 @@ Spectator.describe "wire" do
   private class TestObject
     wire return_bool_for_bool_type : Bool,
          to: return_bool_for_bool_type
-    # Handling an alternate method name is implicitly tested here.
+    # Handling an alternate method name and no type declaration is implicitly
+    # tested here.
     wire return_any_value_for_any_type,
          to: return_any_value
     wire return_string_for_nilable_string_type : String?,
@@ -67,7 +68,7 @@ Spectator.describe "wire" do
     wire value, to: value
     wire :<<, to: :<<
     wire :[]=, to: :[]=
-    wire :[], to: :[]
+    wire :[], return_type: String, to: :[]
     wire call_block, to: call_block
     def initialize(@origin : OriginObject); end
   end
@@ -82,6 +83,9 @@ Spectator.describe "wire" do
     it "does not compile when mismatching type definition" do
       expect(compile_fails("wire/wrong_typing")).to match(
         /method must return Int32 but it is returning Float64/i
+      )
+      expect(compile_fails("wire/wrong_typing_on_special_method_name")).to match(
+        /method must return Int32 but it is returning String/i
       )
     end
 
@@ -110,15 +114,21 @@ Spectator.describe "wire" do
       expect(options).to eq vegetables
     end
 
-    it "does not compile when passing a wrong type as 'from' argument" do
+    it "does not compile when passing a wrong type for 'from' argument" do
       expect(compile_fails("wire/bad_from_argument")).to match(
         /'from' parameter expects/i
       )
     end
 
-    it "does not compile when passing a wrong type as 'to' argument" do
+    it "does not compile when passing a wrong type for 'to' argument" do
       expect(compile_fails("wire/bad_to_argument")).to match(
         /'to' parameter expects/i
+      )
+    end
+
+    it "does not compile when passing a wrong type for 'return_type' argument" do
+      expect(compile_fails("wire/bad_return_type_argument")).to match(
+        /'return_type' parameter expects/i
       )
     end
   end

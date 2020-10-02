@@ -1,5 +1,5 @@
 require "../../src/origin/wire"
 
 struct Foo
-  wire foo, to: FOO
+  wire foo, to: "foo"
 end

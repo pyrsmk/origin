@@ -1,7 +1,7 @@
 # Define instance methods to decorate methods on `@origin`.
 # @param from [TypeDeclaration | Call]
 # @param to [Call]
-macro wire(from, to)
+macro wire(from, to, return_type = nil)
   # Verify parameters
   {%
     if !%w(TypeDeclaration Call SymbolLiteral).includes?(from.class_name)
@@ -23,10 +23,15 @@ macro wire(from, to)
                   end
   %}
   # Prepare the return type
-  {% return_type = "" %}
   {%
-    if from.is_a?(TypeDeclaration)
-      return_type = " : #{from.type.id}"
+    if return_type.is_a?(NilLiteral)
+      if from.is_a?(TypeDeclaration)
+        return_type = " : #{from.type.id}"
+      end
+    elsif return_type.is_a?(Path)
+      return_type = " : #{return_type.resolve.id}"
+    else
+      raise "'return_type' parameter expects a type."
     end
   %}
   # Generate the methods
