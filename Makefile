@@ -17,11 +17,15 @@ format: ## Format all Crystal files
 
 .PHONY=publish
 publish: ## Publish the shard
-	@echo 'Current version: '
+	@echo 'Current version from last tag: '
 	@echo $(shell git describe --tags)
 	@echo
 	@read -p "Version? " VERSION; \
-	git tag $$VERSION
+	sed -i '' -e "s/^version:.*$$/version: $$VERSION/g" shard.yml; \
+	git add shard.yml; \
+	git commit -m "Bump version: $$VERSION"; \
+	git tag $$VERSION; \
+	git push; \
 	git push --tags
 
 .PHONY=help
