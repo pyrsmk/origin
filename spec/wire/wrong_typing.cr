@@ -1,4 +1,4 @@
-require "../../src/wire"
+require "../../src/origin/wire"
 
 struct OriginObject
   def return_float64 : Float64

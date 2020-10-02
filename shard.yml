@@ -12,7 +12,7 @@ license: MIT
 
 targets:
   shards:
-    main: src/main.cr
+    main: src/origin.cr
 
 development_dependencies:
   icr:

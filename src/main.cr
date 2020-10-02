@@ -1,2 +1,0 @@
-require "./wire"
-require "./autowire"
