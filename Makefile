@@ -22,6 +22,7 @@ publish: ## Publish the shard
 	@echo
 	@read -p "Version? " VERSION; \
 	sed -i '' -e "s/^version:.*$$/version: $$VERSION/g" shard.yml; \
+	sed -i '' -e "s/version: ~> .*$$/version: ~> $$VERSION/g" README.md; \
 	git add shard.yml; \
 	git commit -m "Bump version: $$VERSION"; \
 	git tag v$$VERSION; \
