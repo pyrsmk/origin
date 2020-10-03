@@ -1,5 +1,5 @@
 name: origin
-version: 0.2.1
+version: 0.2.2
 description: |
   Method delegation with superpowers. It behaves quite the same as `delegate` macro but with typing support and simpler declaration.
 
