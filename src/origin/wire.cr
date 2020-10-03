@@ -28,7 +28,7 @@ macro wire(from, to, return_type = nil)
       if from.is_a?(TypeDeclaration)
         return_type = " : #{from.type.id}"
       end
-    elsif return_type.is_a?(Path)
+    elsif return_type.is_a?(Path) || return_type.is_a?(Generic)
       return_type = " : #{return_type.resolve.id}"
     else
       raise "'return_type' parameter expects a type."

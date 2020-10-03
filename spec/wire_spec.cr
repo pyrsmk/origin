@@ -42,6 +42,9 @@ Spectator.describe "wire" do
     def [](index : Int32) : String
       @array[index]
     end
+    def []?(index : Int32) : String?
+      @array[index]
+    end
     def call_block(x : Int32)
       yield x
     end
@@ -69,6 +72,7 @@ Spectator.describe "wire" do
     wire :<<, to: :<<
     wire :[]=, to: :[]=
     wire :[], return_type: String, to: :[]
+    wire :[]?, return_type: String?, to: :[]?
     wire call_block, to: call_block
     def initialize(@origin : OriginObject); end
   end
@@ -93,7 +97,7 @@ Spectator.describe "wire" do
       expect{subject.return_any_value_for_any_type}.to_not raise_error
     end
 
-    it "returns a valid values for a nilable type" do
+    it "returns valid values for a nilable type" do
       expect(subject.return_string_for_nilable_string_type).to be_a(String)
       expect(subject.return_nil_for_nilable_string_type).to be_nil
     end
