@@ -10,10 +10,6 @@ crystal: 0.35.1
 
 license: MIT
 
-targets:
-  shards:
-    main: src/origin.cr
-
 development_dependencies:
   icr:
     github: crystal-community/icr
